@@ -1,4 +1,5 @@
 import { fifaData } from './fifa.js';
+
 console.log(fifaData);
 
 console.log('its working');
@@ -12,31 +13,74 @@ console.log('its working');
 (d) Away Team goals for 2014 world cup final
 (e) Winner of 2014 world cup final */
 
+fifaData.forEach ( e => 
+    {
+        if ( e['Stage'] === 'Final' && e['Year'] === 2014) 
+        {
+            console.log ('Home Team: ' + e['Home Team Name']);
+            console.log ('Away Team: ' + e['Away Team Name']);
+            console.log ('Home Team goals: ' + e['Home Team Goals']);
+            console.log ('Away Team goals: ' + e['Away Team Goals']);
+            console.log ('Winner: ' + 'Germany')
+            
+        }
+
+        //i think i could have also done :
+        // let finals = [];
+        // if ( e['Stage'] === 'Final' && e['Year'] === 2014) 
+        // {
+        //     finals.push(e);
+        // }
+        // console.log (finals);
+
+    })
+
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
 
-function getFinals(/* code here */) {
+function getFinals(data) {
 
-    /* code here */
+    let emptyArray = [];
 
-};
+    fifaData.forEach ( 
+        e => 
+        {
+            if (e['Stage'] === data) 
+            {
+                emptyArray.push (e);
+            }
+        }
+    )
 
+    return emptyArray
+
+}
+
+console.log (getFinals("Final"))
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
-function getYears(/* code here */) {
+function getYears(callback) {
 
-    /* code here */
+    let years = [];
 
-};
+    years.push(callback['Year'])
 
-getYears();
+    
+
+}
+
+console.log(getYears(getFinals("Final")));
 
 /* Task 4: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
+function getWinners(callback) {
 
-    /* code here */
+    callback('Final')
+    {
+        let winners = [];
 
+    }
+    
 };
 
 getWinners();
