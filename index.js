@@ -40,7 +40,7 @@ fifaData.forEach ( e =>
 
 function getFinals() {
 
-    let data = fifaData.filter( e => e['Stage'] === 'Final');
+    const data = fifaData.filter( e => e['Stage'] === 'Final');
     return data;
 }
 
@@ -48,14 +48,9 @@ console.log (getFinals())
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
 function getYears(callback) {
-
-    callback(data);
+    const data = callback();
     const years = data.map(e => e['Year']);
-    
     return years;
-    
-    
-
 }
 console.log(getYears(getFinals))
 
@@ -63,11 +58,24 @@ console.log(getYears(getFinals))
 
 function getWinners(callback) {
 
-   
-    
+   const data = callback();
+   const winners = [];
+   data.forEach(e => 
+    {
+        if (e['Home Team Goals'] > e['Away Team Goals'])
+        {
+            winners.push(e['Home Team Name'])
+        }
+        else if (e['Home Team Goals'] < e['Away Team Goals'])
+        {
+            winners.push(e['Away Team Name'])
+        }
+    }
+   )
+    return winners;
 };
 
-getWinners();
+console.log(getWinners(getFinals))
 
 /* Task 5: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
@@ -76,21 +84,28 @@ Parameters:
  * callback function getYears
  */
 
-function getWinnersByYear(/* code here */) {
+function getWinnersByYear(cb1, cb2) 
+{
+    const winners = cb1;
+    const years = cb2;
 
-};
+    winners.forEach(e => {return `In ${years[e]}, ${e} won the world cup!`})
+
+}
 
 getWinnersByYear();
 
 /* Task 6: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals(/* code here */) {
+function getAverageGoals(data) 
+{
+    const avgGoals = data.reduce( (total, e) => total + (e['Home Team Goals'] + e['Away Team Goals']),0 )
 
-    /* code here */
+    return avgGoals/data.length;
+}
 
-};
 
-getAverageGoals();
+console.log(getAverageGoals(fifaData));
 
 /// STRETCH 🥅 //
 
